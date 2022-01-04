@@ -1,5 +1,3 @@
-<%@ page import="ru.job4j.carshop.model.CarType" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
@@ -44,8 +42,9 @@
     </style>
 
 </head>
-
 <body>
+
+<jsp:useBean id="post" scope="request" type="ru.job4j.carshop.model.Post"/>
 
 <div class="container">
 
@@ -60,11 +59,7 @@
                 <div class="row">
                     <c:choose>
                         <c:when test="${user != null}">
-                            <a class="nav-link" style="color: white" href="<%=request.getContextPath()%>/post/edit.do">
-                                <i class="bi bi-plus-circle"></i>
-                                Разместить объявление
-                            </a>
-                            <a class="nav-link" id="userName" style="color: white" href="<%=request.getContextPath()%>/login.do">
+                            <a class="nav-link" id="userName" style="color: white" href="<%=request.getContextPath()%>/login.jsp">
                                 <i class="bi bi-person-circle"></i>
                                 <c:out value="${user.name}"/>
                             </a>
@@ -74,7 +69,7 @@
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a class="nav-link" id="userName" style="color: white" href="<%=request.getContextPath()%>/login.do">
+                            <a class="nav-link" id="userName" style="color: white" href="<%=request.getContextPath()%>/login.jsp">
                                 <i class="bi bi-person-circle"></i>
                                 Войти
                             </a>
@@ -83,45 +78,67 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </div><br>
 
-    <table class="table table-striped" id="taskTable">
-        <thead>
-        <tr>
-            <th>Описание</th>
-            <th>Категория</th>
-            <th>Добавлен</th>
-            <th>Пользователь</th>
-            <th>Фото</th>
-        </tr>
-        </thead>
-        <tbody id="table">
-            <jsp:useBean id="posts" scope="request" type="java.util.List<ru.job4j.carshop.model.Post>"/>
-            <c:forEach items="${posts}" var="post">
-                <tr>
-                    <td>
-                        <a href='<c:url value="/post.do?id=${post.id}"/>' class="text-secondary">
-                            <c:out value="${post.description}"/>
-                        </a>
-                    </td>
-                    <td>
-                        <c:out value="${post.carType.name}"/>
-                    </td>
-                    <td>
-                        <c:out value="${post.created}"/>
-                    </td>
-                    <td>
-                        <c:out value="${post.user.name}"/>
-                    </td>
-                    <td>
-                        <c:forEach items="${post.images}" var="image" begin="0" end="0">
-                            <img src="<c:url value='/addImage.do?image=${image.name}'/>" width="200px" height="150px">
-                        </c:forEach>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+    <div class="card mx-auto" style="width: 100%">
+        <div class="card-header bg-danger text-white" style="font-size: large">
+            Объявление
+        </div>
+        <div class="card-body">
+            <form action="<%=request.getContextPath()%>/login.do" method="post">
+
+                <div id="checkSold">
+                   <c:choose>
+                       <c:when test="${post.sold == false || post.sold == null}">
+                            <div class="card-header bg-success text-white" style="font-size: large">
+                                В продаже.
+                            </div>
+                       </c:when>
+                       <c:otherwise>
+                           <div class="card-header bg-success text-white" style="font-size: large">
+                               Продано!
+                           </div>
+                       </c:otherwise>
+                   </c:choose>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 order-md-1 mb-4">
+                        <label for="carType">Категория :</label>
+                        <select class="form-control" id="carType" disabled>
+                            <option>
+                                <c:out value="${post.carType.name}"/>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 order-md-2 mb-4">
+                        <label for="brand">Марка :</label>
+                        <select class="form-control" id="brand" disabled>
+                            <option>
+                                <c:out value="${post.brand.name}"/>
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Описание :</label>
+                    <textarea class="form-control" rows="3" id="description" disabled>
+                        <c:out value="${post.description}"/>
+                    </textarea>
+                </div>
+
+                <div class="form-group row">
+                    <c:forEach items="${post.images}" var="image">
+                        <img src="<c:url value="/addImage.do?image=${image.name}"/>" width="200px" height="150px">
+                    </c:forEach>
+                </div>
+
+                <a class="btn btn-danger" href="<%=request.getContextPath()%>/index.do">Вернуться на главную</a>
+            </form>
+        </div>
+    </div>
 
 </div>
 </body>

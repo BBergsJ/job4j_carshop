@@ -43,11 +43,11 @@ public class Image {
             return false;
         }
         Image image = (Image) o;
-        return id == image.id;
+        return Objects.equals(name, image.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(name);
     }
 }

@@ -63,13 +63,13 @@
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>Имя пользователя :</label>
-                        <input CarType="text" class="form-control" name="name" id="name">
+                        <input type="text" class="form-control" name="name" id="name">
                         <label>Почта :</label>
-                        <input CarType="text" class="form-control" name="email" id="email">
+                        <input type="text" class="form-control" name="email" id="email">
                         <label>Пароль : </label>
-                        <input CarType="text" class="form-control" name="password" id="password">
+                        <input type="text" class="form-control" name="password" id="password">
                     </div>
-                    <button CarType="submit" class="btn btn-danger" onclick="return validate();">Сохранить</button>
+                    <button type="submit" class="btn btn-danger" onclick="return validate();">Сохранить</button>
                     <c:if test="${not empty requestScope.error}">
                         <div style="color:#ff0000; font-weight: bold; margin: 30px 0;">
                             <c:out value="${requestScope.error}"/>

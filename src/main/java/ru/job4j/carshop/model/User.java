@@ -12,11 +12,13 @@ public class User {
 
     private String name;
     private String email;
+    private String password;
 
-    public static User of(String name, String email) {
+    public static User of(String name, String email, String password) {
         User user = new User();
         user.name = name;
         user.email = email;
+        user.password = password;
         return user;
     }
 
@@ -42,6 +44,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

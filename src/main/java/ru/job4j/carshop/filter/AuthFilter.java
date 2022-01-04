@@ -16,19 +16,18 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String uri = req.getRequestURI();
-        if (uri.endsWith("login.do") || uri.endsWith("reg.do")) {
+        /* if (uri.endsWith("login.do") || uri.endsWith("reg.do") || uri.endsWith("/")) {
             chain.doFilter(request, response);
             return;
         }
         if (req.getSession().getAttribute("user") == null) {
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/login.do");
             return;
-        }
+        } */
         chain.doFilter(request, response);
     }
 
     @Override
     public void destroy() {
-
     }
 }

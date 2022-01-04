@@ -11,8 +11,10 @@ public class CarType {
     private int id;
     private String name;
 
-    public CarType(String name) {
-        this.name = name;
+    public static CarType of(String name) {
+        CarType carType = new CarType();
+        carType.name = name;
+        return carType;
     }
 
     public int getId() {

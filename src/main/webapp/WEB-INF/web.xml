@@ -15,11 +15,6 @@
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
 
-  <filter-mapping>
-    <filter-name>AuthFilter</filter-name>
-    <url-pattern>*.jsp</url-pattern>
-  </filter-mapping>
-
   <servlet>
     <servlet-name>IndexServlet</servlet-name>
     <servlet-class>ru.job4j.carshop.servlet.IndexServlet</servlet-class>
@@ -31,6 +26,22 @@
   <servlet>
     <servlet-name>RegServlet</servlet-name>
     <servlet-class>ru.job4j.carshop.servlet.RegServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>ru.job4j.carshop.servlet.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PostServlet</servlet-name>
+    <servlet-class>ru.job4j.carshop.servlet.PostServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ImageServlet</servlet-name>
+    <servlet-class>ru.job4j.carshop.servlet.ImageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EditServlet</servlet-name>
+    <servlet-class>ru.job4j.carshop.servlet.EditServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -45,8 +56,24 @@
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/reg.do</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PostServlet</servlet-name>
+    <url-pattern>/post.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageServlet</servlet-name>
+    <url-pattern>/addImage.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditServlet</servlet-name>
+    <url-pattern>/post/edit.do</url-pattern>
+  </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>index.do</welcome-file>
   </welcome-file-list>
 </web-app>

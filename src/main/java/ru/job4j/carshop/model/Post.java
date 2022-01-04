@@ -33,7 +33,7 @@ public class Post {
     @JoinColumn(name = "type_id")
     private CarType carType;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Image> images = new HashSet<>();
 
     public static Post of(String description, User user, Brand brand, Car car, CarType carType) {
@@ -55,7 +55,7 @@ public class Post {
     public int getId() {
         return id;
     }
-
+ 
     public void setId(int id) {
         this.id = id;
     }
@@ -114,6 +114,14 @@ public class Post {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     @Override

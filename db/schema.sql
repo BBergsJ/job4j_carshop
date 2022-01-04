@@ -41,3 +41,5 @@ create table if not exists CarType (
 alter table posts add column type_id int references CarType(id);
 
 alter table posts add column brand_id int references brands(id);
+
+alter table users add column password varchar(200);

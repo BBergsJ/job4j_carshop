@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.carshop.model.Brand;
+import ru.job4j.carshop.model.CarType;
 import ru.job4j.carshop.model.Post;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class PostStoreImpl implements PostStore {
     private PostStoreImpl() {
     }
 
-    private final static class Lazy {
+    private static final class Lazy {
         private static final PostStore INST = new PostStoreImpl();
     }
 
@@ -30,42 +31,84 @@ public class PostStoreImpl implements PostStore {
 
     @Override
     public Post save(Post post) {
-        return null;
+        tx(session -> session.save(post));
+        return post;
+    }
+
+    @Override
+    public Post saveOrUpdate(Post post) {
+        return tx(session -> {
+                session.saveOrUpdate(post);
+                return post;
+            }
+        );
     }
 
     @Override
     public Post get(int id) {
-        return null;
+        return tx(session -> session.createQuery("from Post where id = :id", Post.class)
+                .setParameter("id", id).uniqueResult()
+        );
     }
 
     @Override
     public List<Post> getByCurrentDay(Date date) {
-        return null;
+        return tx(session -> session.createQuery("from Post p where p.created = :date", Post.class)
+                .setParameter("date", date)
+                .list()
+        );
     }
 
     @Override
     public List<Post> getPostsWithPhoto() {
-        return null;
+        return tx(session -> session.createQuery("from Post p where p.images is not empty", Post.class)
+                .list()
+        );
     }
 
     @Override
     public List<Post> getAll() {
-        return null;
+        return tx(session -> session.createQuery("from Post", Post.class)
+                .getResultList()
+        );
     }
 
     @Override
     public List<Post> getPostsByBrand(Brand brand) {
-        return null;
+        return tx(session -> session.createQuery("from Post p where p.brand = :brand", Post.class)
+                .setParameter("brand", brand)
+                .list()
+        );
     }
 
     @Override
-    public Brand getCarBrand(int id) {
-        return null;
+    public Brand getCarBrandId(int id) {
+        return tx(session -> session.createQuery("from Brand b where b.id = :id", Brand.class)
+                .setParameter("id", id)
+                .uniqueResult()
+        );
+    }
+
+    @Override
+    public CarType getCarTypeId(int id) {
+        return tx(session -> session.createQuery("from CarType ct where ct.id = :id", CarType.class)
+                .setParameter("id", id)
+                .uniqueResult()
+        );
     }
 
     @Override
     public List<Brand> getAllCarBrands() {
-        return null;
+        return tx(session -> session.createQuery("from Brand", Brand.class)
+                .list()
+        );
+    }
+
+    @Override
+    public List<CarType> getAllCarTypes() {
+        return tx(session -> session.createQuery("from CarType", CarType.class)
+                .getResultList()
+        );
     }
 
     public static SessionFactory getSessionFactory() {

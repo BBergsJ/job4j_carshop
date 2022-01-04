@@ -59,13 +59,13 @@
                 <form action="<%=request.getContextPath()%>/login.do" method="post">
                     <div class="form-group">
                         <label>Почта</label>
-                        <input CarType="text" class="form-control" name="email" id="email">
+                        <input type="text" class="form-control" name="email" id="email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input CarType="text" class="form-control" name="password" id="password">
+                        <input type="text" class="form-control" name="password" id="password">
                     </div>
-                    <button CarType="submit" class="btn btn-danger" onclick="return validate();">Войти</button>
+                    <button type="submit" class="btn btn-danger" onclick="return validate();">Войти</button>
                     <a class="btn btn-danger" href="<%=request.getContextPath()%>/reg.do">Регистрация</a>
                     <c:if test="${not empty error}">
                         <div style="color:#ff0000; font-weight: bold; margin: 30px 0;">
