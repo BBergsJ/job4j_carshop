@@ -20,7 +20,6 @@ public class IndexServlet extends HttpServlet {
         PostStore store = PostStoreImpl.instOf();
 
         req.setAttribute("posts", store.getAll());
-        req.setAttribute("types", store.getAllCarTypes());
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }

@@ -11,7 +11,7 @@ public interface PostStore {
     Post save(Post post);
     Post saveOrUpdate(Post post);
     Post get(int id);
-    List<Post> getByCurrentDay(Date date);
+    List<Post> getByCurrentDay();
     List<Post> getPostsWithPhoto();
     List<Post> getAll();
     List<Post> getPostsByBrand(Brand brand);

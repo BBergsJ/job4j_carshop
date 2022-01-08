@@ -3,7 +3,8 @@ create database carshop;
 create table if not exists users (
                                      id serial primary key,
                                      name varchar(200),
-                                     email varchar(200)
+                                     email varchar(200) not null unique,
+                                     password varchar(200)
 );
 
 create table if not exists brands (
@@ -43,3 +44,8 @@ alter table posts add column type_id int references CarType(id);
 alter table posts add column brand_id int references brands(id);
 
 alter table users add column password varchar(200);
+
+alter table users alter column email set not null;
+
+create unique index users_email_uindex
+    on users (email);

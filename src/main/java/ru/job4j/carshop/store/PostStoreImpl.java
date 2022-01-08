@@ -52,9 +52,8 @@ public class PostStoreImpl implements PostStore {
     }
 
     @Override
-    public List<Post> getByCurrentDay(Date date) {
-        return tx(session -> session.createQuery("from Post p where p.created = :date", Post.class)
-                .setParameter("date", date)
+    public List<Post> getByCurrentDay() {
+        return tx(session -> session.createQuery("from Post p where p.created >= current_date - 1", Post.class)
                 .list()
         );
     }
@@ -68,7 +67,7 @@ public class PostStoreImpl implements PostStore {
 
     @Override
     public List<Post> getAll() {
-        return tx(session -> session.createQuery("from Post", Post.class)
+        return tx(session -> session.createQuery("from Post p join fetch p.images", Post.class)
                 .getResultList()
         );
     }

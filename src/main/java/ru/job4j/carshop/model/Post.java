@@ -33,7 +33,7 @@ public class Post {
     @JoinColumn(name = "type_id")
     private CarType carType;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Image> images = new HashSet<>();
 
     public static Post of(String description, User user, Brand brand, Car car, CarType carType) {

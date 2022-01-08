@@ -9,10 +9,10 @@ public class HQLMain {
     public static void main(String[] args) {
         PostStore postStore = PostStoreImpl.instOf();
 
-        Post post = postStore.get(13);
-
-        for (Image image : post.getImages()) {
-            System.out.println(image.getName());
+        List<Post> rsl = postStore.getByCurrentDay();
+        System.out.println(rsl.size());
+        for (Post post : rsl) {
+            System.out.println(post.getCreated().toString());
         }
     }
 }
